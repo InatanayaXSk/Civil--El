@@ -5,6 +5,7 @@ import { analyzePlantImage, askPlantCareQuestion } from '../lib/genai';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Camera, CameraType } from 'react-camera-pro';
+import ReactMarkdown from 'react-markdown';
 
 export function Detect() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -100,7 +101,7 @@ export function Detect() {
             {chatResponse && (
               <div className="chat-response">
                 <h3>Response:</h3>
-                <p>{chatResponse}</p>
+                <ReactMarkdown>{chatResponse}</ReactMarkdown>
               </div>
             )}
           </div>
@@ -109,3 +110,28 @@ export function Detect() {
     </div>
   );
 }
+
+
+// 1. **Disease Name:** None apparent.
+
+// 2. **Confidence Level:** High.
+
+// 3. **Symptoms Visible:** The leaves appear healthy with a uniform green color, well-defined veins, and no signs of discoloration, spots, wilting, or deformities.
+
+// 4. **Treatment Recommendations:** None needed. The leaves look healthy.
+
+// 5. **Prevention Tips:** Since the leaves look healthy, focus on maintaining optimal growing conditions:
+
+// * **Proper Watering:** Avoid both overwatering and underwatering. Water thoroughly when the top inch of soil feels dry.
+
+// * **Adequate Light:** Provide sufficient light according to the plant's needs.
+
+// * **Nutrient-Rich Soil:** Ensure the plant is growing in well-draining soil with the correct nutrients.
+
+// * **Good Air Circulation:** This helps prevent fungal diseases.
+
+// * **Regular Inspection:** Monitor the plant regularly for any changes in appearance, such as discoloration, spots, or wilting. This will allow you to address any potential issues early.
+
+// * **Hygiene:** Clean and disinfect tools used around your plants to prevent the spread of disease.
+
+// It's important to remember that even though these leaves look healthy in the image, it's only a limited view. If the plant starts showing any signs of distress, reassess and seek advice from a local plant expert or extension service for proper diagnosis and treatment. Providing more context, such as the plant species and its growing conditions, can also help in future assessments.

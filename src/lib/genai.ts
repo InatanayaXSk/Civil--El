@@ -31,3 +31,19 @@ export async function analyzePlantImage(imageBase64: string): Promise<string> {
     throw new Error('Failed to analyze image');
   }
 }
+
+export async function askPlantCareQuestion(question: string): Promise<string> {
+  try {
+    const model = genAI.getGenerativeModel({ model: import.meta.env.VITE_MODEL_ID });
+
+    const prompt = `You are a plant care expert, also give me the answer in a neat formatted style and highlight the headings of the information , the answer should not be more than 100 words Answer the following question: ${question}`;
+
+    const result = await model.generateContent([prompt]);
+
+    const response = await result.response;
+    return response.text();
+  } catch (error) {
+    console.error('Error asking plant care question:', error);
+    throw new Error('Failed to get plant care advice');
+  }
+}

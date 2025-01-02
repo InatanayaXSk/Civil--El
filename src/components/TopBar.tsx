@@ -13,6 +13,8 @@ export function TopBar() {
           <Link to="/detect" className="hover:text-green-200 transition-colors">Leaf Page</Link>
           <Link to="/articles" className="hover:text-green-200 transition-colors">Read Articles</Link>
           <Link to="/about" className="hover:text-green-200 transition-colors">About Us</Link>
+
+         
         </div>
       </div>
     </div>

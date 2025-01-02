@@ -4,7 +4,7 @@ import { Analysis } from '../components/Analysis';
 import { analyzePlantImage, askPlantCareQuestion } from '../lib/genai';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Camera } from 'react-camera-pro';
+import { Camera, CameraType } from 'react-camera-pro';
 
 export function Detect() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -12,7 +12,7 @@ export function Detect() {
   const [loading, setLoading] = useState(false);
   const [chatMessage, setChatMessage] = useState('');
   const [chatResponse, setChatResponse] = useState('');
-  const cameraRef = useRef(null);
+  const cameraRef = useRef<CameraType>(null);
 
   const handleImageSelect = async (base64: string) => {
     setSelectedImage(base64);
@@ -35,7 +35,7 @@ export function Detect() {
     }
   };
 
-  const handleChatSubmit = async (e) => {
+  const handleChatSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {

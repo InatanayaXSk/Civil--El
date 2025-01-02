@@ -1,35 +1,34 @@
 import React, { useState } from 'react';
 import './AboutUs.css';
-import { TopBar } from '../components/TopBar'; // Adjust the import path as necessary
+import { TopBar } from '../components/TopBar';
 
 const AboutUs = () => {
-  // State for the contact form
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (email && message) {
-        try {
-            const response = await fetch('https://script.google.com/macros/s/AKfycbyY2_16MYWsIQjjSLl8uQ9xDYwrEDeYjwYb9SRCmKQNILktSzWPPNS3OAn5sFSZGDdGjg/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, message }),
-            });
-            if (response.ok) {
-                alert("Your message has been sent successfully.");
-            } else {
-                alert("Your message has been sent successfully");
-            }
-        } catch (error) {
-            console.error("Error:", error);
-            alert("There was an error sending your message. Please try again later.");
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbyY2_16MYWsIQjjSLl8uQ9xDYwrEDeYjwYb9SRCmKQNILktSzWPPNS3OAn5sFSZGDdGjg/exec', {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, message }),
+        });
+        if (response.ok) {
+          alert("Your message has been sent successfully.");
+        } else {
+          alert("Your message has been sent successfully");
         }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("There was an error sending your message. Please try again later.");
+      }
     } else {
-        alert("Please fill in both fields.");
+      alert("Please fill in both fields.");
     }
   };
 
@@ -46,9 +45,9 @@ const AboutUs = () => {
               { name: "Sumadhva Krishna H M", github: "https://github.com/InatanayaXSk" },
               { name: "Hemang Shrikar Desai", github: "https://github.com/Shogun05" }
             ].map((member, index) => (
-              <div key={index} className="team-member-card p-4 border rounded-lg cursor-pointer hover:shadow-lg flex items-center bg-blue-100" onClick={() => window.open(member.github, "_blank")}>
-                <div className="team-member-avatar bg-green-200 text-green-800 w-16 h-16 flex items-center justify-center rounded-full mr-4">{member.name[0]}</div>
-                <h3 className="text-xl font-semibold">{member.name}</h3>
+              <div key={index} className="team-member-card p-4 border rounded-lg cursor-pointer hover:shadow-lg flex items-center bg-blue-100" style={{ width: '25%' }} onClick={() => window.open(member.github, "_blank")}>
+          <div className="team-member-avatar bg-green-200 text-green-800 w-16 h-16 flex items-center justify-center rounded-full mr-4">{member.name[0]}</div>
+          <h3 className="text-xl font-semibold">{member.name}</h3>
               </div>
             ))}
           </div>

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import buyLinks from '../pages/buyLinks.json';
 
 // Import the diseases data
+
 import diseasesData from '../pages/diseases.json';
 
 interface AnalysisProps {
@@ -22,35 +24,40 @@ export function Analysis({ analysis, loading }: AnalysisProps) {
 
   if (!analysis) return null;
 
-  // Extract the disease name from the analysis
-  const diseaseNameMatch = analysis.match(/Disease Name: (.+)/);
-  const diseaseName = diseaseNameMatch ? diseaseNameMatch[1].toLowerCase() : null;
-  console.log(diseaseName)
-  // Find the suitable supplement for the disease
-  let supplement = null;
-  if (diseaseName) {
-    for (const plant in diseasesData) {
-      for (const disease in diseasesData[plant]) {
-        if (diseaseName.includes(disease)) {
-          supplement = diseasesData[plant][disease][0]; // Select the first supplement
-          break;
-        }
+  // Extract the relevant links from the analysis
+  const links: string[] = [];
+  for (const key in buyLinks) {
+    console.log(key);
+    if (analysis.toLowerCase().includes(key.toLowerCase())) {
+      console.log(buyLinks[key]);
+      if (Array.isArray(buyLinks[key])) {
+        links.push(...buyLinks[key]);
+      } else {
+        links.push(buyLinks[key]);
       }
-      if (supplement) break;
     }
   }
-
+  console.log(links);
+  
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 mt-6">
       <h2 className="text-xl font-semibold text-gray-800 mb-4">Analysis Results</h2>
       <div className="prose prose-green">
-        <ReactMarkdown>{analysis}</ReactMarkdown>
+      <ReactMarkdown>{analysis}</ReactMarkdown>
       </div>
-      {supplement && (
-        <div className="mt-4 p-4 bg-green-100 rounded-lg">
-          <h3 className="text-lg font-semibold text-green-800">Recommended Supplement</h3>
-          <p className="text-green-700">{supplement}</p>
-        </div>
+      {links.length > 0 && (
+      <div className="mt-4 p-4 bg-green-100 rounded-lg">
+        <h3 className="text-lg font-semibold text-green-800">Buy Links</h3>
+        <ul className="list-disc list-inside text-green-700">
+          {links.map((link, index) => (
+            <li key={index}>
+              <a href={link} target="_blank" rel="noopener noreferrer" className="text-green-700 hover:underline">
+                {link}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
       )}
     </div>
   );
